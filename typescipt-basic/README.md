@@ -209,3 +209,172 @@
 💡 Type은  Property를 추가 하기 위해 다시 선언할 수 없다
 
 </aside>
+
+## 2.4 Enum
+
+- enum은 Typescript에서 몇 안되는 javascript의 type-level 확장 내용이 아니다
+  - 결론적으로 tsc로 컴파일 되는 요소에서 제외된다는 의미
+- 아래와 같은 경우 auto-increment가 적용된다
+
+```tsx
+enum Direction {
+	Up = 1,
+	Down,
+	Left,
+	Right,
+}
+```
+
+- 문자열로도 선언이 가능하다
+
+```tsx
+enum Direction {
+	Up = "UP",
+	Down = "DOWN",
+	Left = "LEFT",
+	Right = "RIGHT"
+}
+```
+
+# 3. Function
+
+## 3.1 Function Type Expressions
+
+- 함수 타입을 지정할 수 있다
+
+```tsx
+// 하나의 파라미터를 가진 함수라는 의미의 타입
+// fn이라는 콜백함수를 인자로 받고 있음
+function hello( fn: (a: string) => void) {
+	fn("hello, world");
+}
+
+function log(s: string) {
+	console.log(s);
+}
+
+hello(log);
+```
+
+- type으로도 함수를 지정할 수 있다
+
+    ```tsx
+    type callFunction = (a: string) => void;
+    function hello(fn: callFuncion) { 
+    	// ...
+    }
+    ```
+
+
+## 3.2 Constuctor Signatures
+
+- new 연산자를 활용해 object를 생성할 수 있다
+
+    <aside>
+    💡 내가 부족한 건 new Set(), new Map()
+
+    </aside>
+
+    ```tsx
+    class SomeObject {
+    	constuctor(public s: string) {
+    		console.log('ctor invoked : ', s);	
+    	}
+    }
+    
+    type ConstructorObject = {
+    	new (s: string): SomeObject;
+    };
+    
+    function fn(ctor: ConstructorObject) {
+    	return new ctor("hello");
+    }
+    
+    fn(SomeObject)
+    ```
+
+
+# 4. Class Members
+
+```tsx
+class Point {
+	x: number;
+	y: number;
+}
+
+const pt = new Point();
+pt.x = 0;
+pt.y = 0;
+
+// console.log(pt) -> { x:0, y:0 }
+```
+
+- 생성자 활용
+
+```tsx
+class Greeter {
+	name : string;
+	
+	constructor() {
+		this.name = "hello";
+	}
+}
+
+const greeter = new Greetor()
+console.log(greeter.name) // hello
+```
+
+```tsx
+class Greeter2 {
+	name: string;
+
+	constructor(name:string) {
+		this.name = name;
+	}
+	
+	const greeter = new Greeter("how are you")
+	console.log(greeter.name)// how are you
+}
+```
+
+- typescript는 멤버변수의 readonly 설정이 가능하다
+  - 외부에서 접근하지 못하게 설정할 수 있다
+
+```tsx
+class Greeter {
+	readonly name: string = "world";
+	constructor(otherName?: string) {
+		if (otherName !== undefined) {
+			this.name = otherName;
+		}
+	}
+}
+
+const greeter = new Greeter();
+greeter.name = "new name"; // 읽기 전용 변수이기 때문에, 값을 할당할 수 없다 -> compile error
+```
+
+## 4.1 super call
+
+- 부모 클래스에 선언되어있는 매개변수를 불러오기 위해서는 super call을 쓰지 않으면 this를 쓸 수 없다
+
+```tsx
+class Car {
+	window = 4;
+}
+
+class BMW extends Car {
+	constructor() {
+		super();
+		console.log(this.window);
+	}
+}
+
+let bmw = new BMW()
+console.log(bmw.window); // 4
+```
+# 기타
+
+- 접근지정자
+  - 클래스 외부에서 변수를 수정할 수 없게 객체지향적인 코드를 짜는 것
+  - protected는 확장된 클래스에서 참조가 가능하다
