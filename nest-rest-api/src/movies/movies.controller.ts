@@ -4,8 +4,9 @@ import {
   Get,
   Param,
   Post,
-  Put,
   Patch,
+  Body,
+  Query,
 } from '@nestjs/common';
 
 @Controller('movies')
@@ -13,6 +14,15 @@ export class MoviesController {
   @Get()
   getAll() {
     return 'This is return all movie';
+  }
+
+  /*
+    http://localhost:3000/movies/search?year=2000 <- 처럼 year 같은 query argument를 보내고싶은경우
+    search 부분이 Get보다 밑에 있으면 nestjs는 search를 id로 판단한다
+  */
+  @Get('search')
+  search(@Query('year') searchingYear: string) {
+    return `We are searching for a movie made after: ${searchingYear}`;
   }
 
   /*
@@ -25,8 +35,9 @@ export class MoviesController {
   }
 
   @Post()
-  create() {
-    return 'This will create a movie';
+  create(@Body() movieData) {
+    console.log('movieData', movieData);
+    return movieData;
   }
 
   @Delete('/:id')
@@ -39,7 +50,10 @@ export class MoviesController {
     Patch는 리소스의 일부분만 업데이트해준다
   */
   @Patch('/:id')
-  patch(@Param('id') movieId: string) {
-    return `This will patch a movie with the id: ${movieId}`;
+  patch(@Param('id') movieId: string, @Body() updateData) {
+    return {
+      updatedMovie: movieId,
+      ...updateData,
+    };
   }
 }
