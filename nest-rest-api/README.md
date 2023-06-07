@@ -33,3 +33,21 @@ nest g co
 - request의 body 부분을 가져오고 싶은 경우
   - `@Body` 데코레이터를 사용한다
 - query parameters, body decorators를 배웠다
+
+# #2.2 Movies Service part One
+
+## Single-responsibility principle을 따르자
+
+- 하나의 모듈, 클래스 혹은 함수가 하나의 기능은 꼭 책임져야 한다는 것
+- 다시 말하자면, 컨트롤러는 url을 매핑하고, 리퀘스트를 받고, Query를 넘기거나 Body나 그 외의 것들을 넘기는 역할을 한다
+- 서비스는 로직을 관리하는 역할을 가지게 된다
+  - 어떠한 한 개의 요소가 한 가지 기능은 꼭 책임져야 한다
+
+```bash
+nest g s
+
+# ? What name would you like to use for the controller? movies
+#CREATE src/movies/movies.controller.spec.ts (492 bytes)
+#CREATE src/movies/movies.controller.ts (101 bytes)
+#UPDATE src/app.module.ts (211 bytes)
+```
