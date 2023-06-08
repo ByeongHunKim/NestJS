@@ -51,3 +51,14 @@ nest g s
 #CREATE src/movies/movies.controller.ts (101 bytes)
 #UPDATE src/app.module.ts (211 bytes)
 ```
+
+# #2.4 DTOs and Validation part One
+
+- DTO
+  - Data Transfer Object
+- DTO를 쓰는 이유
+  - 프로그래머로서 코드를 더 간결하게 만들수 있도록 해준다
+  - NestJS가 들어오는 쿼리에 대해 유효성을 검사할 수 있게 해준다
+- pipe
+  - 미들웨어 같은 것
+  - `$ npm install class-validator class-transformer`
