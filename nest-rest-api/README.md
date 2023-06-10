@@ -62,3 +62,11 @@ nest g s
 - pipe
   - 미들웨어 같은 것
   - `$ npm install class-validator class-transformer`
+
+# #3.2 Testing getAll and getOne
+
+- it
+  - individual test를 의미하는 것이었다
+- 명령어들
+  - `npm run test:watch`
+  - `npm run test:cov`
