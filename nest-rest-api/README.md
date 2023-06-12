@@ -70,3 +70,9 @@ nest g s
 - 명령어들
   - `npm run test:watch`
   - `npm run test:cov`
+
+# #3.4 Testing update
+
+- beforeEach
+- afterAll
+- beforeAll 등 많은 hook이 있다
