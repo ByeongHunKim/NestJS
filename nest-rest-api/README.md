@@ -76,3 +76,9 @@ nest g s
 - beforeEach
 - afterAll
 - beforeAll 등 많은 hook이 있다
+
+# #4.1 Testing GET movies id
+- todo 를 작성하면 test에 나온다
+  - it.todo('DELETE');
+  - it.todo('PATCH');
+    - e.g. `Tests: 1 failed, 2 todo, 4 passed, 7 total`
